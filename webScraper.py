@@ -13,18 +13,22 @@ def showMoreNY(passInDriver):
         if "show more" in showMore[i].text.lower():
             try:
                 print(showMore[i].click())
-                # time.sleep(1)
+                time.sleep(2)
+
             except:
-                time.sleep(1)
+                # time.sleep(1)
                 print(showMore[i].click())
 
 def getNYArticles(passInDriver):
+    articles=[]
     objective1Articles=passInDriver.find_elements_by_tag_name("a")
     for i in range(len(objective1Articles)):
         # eventObject = Event()
         eventLink=objective1Articles[i].get_attribute('href')
-        if ".html" in eventLink and eventLink[25].isdigit():
+        if ".html" in eventLink and eventLink not in articles and eventLink[25].isdigit():
             print(eventLink)
+            articles.append(eventLink)
+    return articles
 
 def showMoreNPR(passInDriver):
     showMore=passInDriver.find_elements_by_tag_name("button")
@@ -37,7 +41,9 @@ def showMoreNPR(passInDriver):
                 time.sleep(1)
                 print(showMore[i].click())
 
+
 def getNPRArticles(passInDriver):
+
     # passInDriver=passInDriver.find_elements_by_class_name("teaser")
     objective1Articles=passInDriver.find_elements_by_tag_name("a")
     # objective1Articles=passInDriver.
@@ -52,6 +58,7 @@ def getNPRArticles(passInDriver):
                 print(eventLink)
         except:
             continue
+    return articles
 
 def main():
 
@@ -63,27 +70,29 @@ def main():
     # put driver executable file in the script directory
     chrome_driver = os.path.join(os.getcwd(), "chromedriver")
 
-    objective1 = webdriver.Chrome(chrome_options=chrome_options, executable_path=chrome_driver)
-    objective2 = webdriver.Chrome(chrome_options=chrome_options, executable_path=chrome_driver)
+    # objective1 = webdriver.Chrome(chrome_options=chrome_options, executable_path=chrome_driver)
+    # objective2 = webdriver.Chrome(chrome_options=chrome_options, executable_path=chrome_driver)
     subjective1 = webdriver.Chrome(chrome_options=chrome_options, executable_path=chrome_driver)
 
-    objective1.get("https://www.nytimes.com/section/politics")
-    objective2.get("https://www.npr.org/sections/politics/")
-    subjective1.get("https://www.nytimes.com/section/opinion/politics")
-    sum=0
-    for i in range(100):
-        if sum%3==0:
-            showMoreNY(subjective1)
-        else if sum%3==1:
-            showMoreNY(objective1)
-        else if sum%3==2:
-            showMoreNPR(objective2)
-        time.sleep(1)
+    # objective1.get("https://www.nytimes.com/section/politics")
+    # objective2.get("https://www.npr.org/sections/politics/")
+    # subjective1.get("https://www.nytimes.com/section/opinion/politics")
+    # sum=0
+    # for i in range(100):
+    #     # if sum%3==0:
+        # showMoreNY(subjective1)
+    #     # if sum%3==1:
+    # showMoreNY(objective1)
+        # if sum%3==2:
+        # showMoreNPR(objective2)
+        #
+        # time.sleep(1)
     # getNYArticles(subjective1)
-    getNYArticles(objective1)
-    getNPRArticles(objective2)
+    # getNYArticles(objective1)
 
-    getNYArticles(subjective1)
+    # getNPRArticles(objective2)
+    #
+    # getNYArticles(subjective1)
 
     # for i in range(300):
     #     try:
